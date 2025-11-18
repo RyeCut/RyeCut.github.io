@@ -18,6 +18,7 @@
   --header-dark-bg: #071428; /* darker header background for high contrast */
   --header-dark-text: #ffffff;
   --footer-bg: #f3f6f9;
+  --contrast-color: #0f1724; /* dark text for readability */
 }
 
 /* Body / base paragraph */
@@ -121,15 +122,15 @@ h6 {
 /* Resume blocks */
 #resume .resume-side,
 #resume .resume-section {
-  background: var(--card-bg);
-  border-radius: calc(var(--card-radius) - 2px);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 10px 28px rgba(16,24,40,0.05);
-  padding: 1.1rem;
+  background-color: var(--accent-color) !important; /* same as .contact .info-box */
+  color: var(--contrast-color) !important;          /* same readable contrast color */
+  padding: 1.5rem !important;
+  border-radius: 1rem !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
-#resume .resume-item { padding: 0.85rem 0; border-bottom: 1px dashed rgba(0,0,0,0.04); }
-#resume .resume-item:last-child { border-bottom: none; }
+#resume .resume-item { padding: 0.75rem 0; border-bottom: none; }
 
 /* Portfolio media styling to visually separate pieces */
 #portfolio .img-fluid,
@@ -138,12 +139,36 @@ h6 {
 #portfolio iframe {
   display: block;
   width: 100%;
+  max-width: min(900px, 65vw); /* don't exceed large width or 65% of viewport */
+  height: auto; /* preserve aspect ratio */
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 10px;
   border: 1px solid rgba(0,0,0,0.04);
   box-shadow: 0 8px 28px rgba(16,24,40,0.06);
   margin: 0 0 1.25rem 0;
   background: #fff;
+  object-fit: cover; /* for video where supported */
 }
+
+/* For iframe (YouTube) ensure responsive height based on width */
+#portfolio iframe {
+  aspect-ratio: 16 / 9;
+}
+
+/* Smaller max-width for very small screens to avoid overflow */
+@media (max-width: 576px) {
+  #portfolio .img-fluid,
+  #portfolio video.img-fluid,
+  #portfolio audio.img-fluid,
+  #portfolio iframe {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* For gallery-like layout, keep images centered inside their containers */
+#portfolio img.img-fluid { display: block; margin: 0 auto 1.25rem; }
 
 /* Section titles slightly separated */
 .section-title h2,
@@ -154,6 +179,21 @@ h6 {
 
 /* Tighter title spacing inside cards */
 .profile-card h3, .resume-section h3 { margin-bottom: 0.5rem; }
+
+/* Improve progress bar contrast when inside resume (skills) */
+#resume .skill-item .progress {
+  background: color-mix(in srgb, var(--contrast-color), transparent 88%);
+  height: 14px;
+  border-radius: 999px;
+  padding: 2px;
+}
+#resume .skill-item .progress .progress-bar {
+  background: linear-gradient(90deg, var(--contrast-color) 0%, color-mix(in srgb, var(--contrast-color), white 30%) 100%);
+  box-shadow: none;
+}
+
+/* Ensure percentage labels remain readable */
+#resume .skill-item span:last-child { color: var(--contrast-color) !important; font-weight: 700; }
 
 /* Small screens: reduce paddings to preserve space */
 @media (max-width: 768px) {
@@ -375,4 +415,112 @@ button:focus, .btn:focus, input[type="button"]:focus, input[type="submit"]:focus
 /* Small screen override to keep contrasts intact */
 @media (max-width: 768px) {
   .header.dark-background { background-color: var(--header-dark-bg); }
+}
+
+/* Final contrast / accessibility overrides — TEXT ONLY (no background changes) */
+:root {
+  --text-override: #0f1724;   /* dark primary text */
+  --link-override: #5a4630;   /* darker tan for links */
+  --card-text-override: #0f1724;
+}
+
+/* Apply text color overrides (do not change backgrounds) */
+body, .main { color: var(--text-override) !important; }
+p, span, li, small, .lead, .description { color: var(--text-override) !important; }
+h1, h2, h3, h4, h5, h6 { color: var(--text-override) !important; }
+
+a { color: var(--link-override) !important; }
+a:hover, a:focus { color: color-mix(in srgb, var(--link-override), black 10%) !important; text-decoration-color: currentColor !important; }
+a:visited { color: color-mix(in srgb, var(--link-override), black 30%) !important; }
+
+/* Buttons/text inside controls */
+.btn, .btn-primary, .btn-outline, button { color: var(--text-override) !important; }
+
+/* Keep header dark text white when header uses dark background */
+.header.dark-background, .header.dark-background * { color: var(--header-dark-text) !important; }
+
+/* Cards / info-boxes: only adjust text color, do not force background */
+.profile-card, .info-box, #resume .resume-side, #resume .resume-section { color: var(--card-text-override) !important; }
+
+/* Progress labels and small text */
+.progress-bar[aria-valuenow], .small, .lead, .company, .profession { color: var(--card-text-override) !important; }
+
+/* Icons */
+.icon-box i, .bi { color: var(--card-text-override) !important; }
+
+/* Replace any remaining white text on light backgrounds with readable dark text */
+[style*="color: white"], .text-white { color: var(--text-override) !important; }
+
+/* Stronger focus outlines (color uses link override) */
+:focus { outline: 4px solid color-mix(in srgb, var(--link-override), black 10%) !important; outline-offset: 3px !important; }
+
+/* Cream text for non-card content (Hero, Portfolio title, Contact title/paragraph) */
+#hero, #hero .hero-text, #hero .hero-text h1, #hero .hero-text h2, #hero .hero-text p {
+  color: var(--accent-color) !important;
+}
+
+#portfolio .section-title h2 {
+  color: var(--accent-color) !important;
+}
+
+#contact .section-title h2,
+#contact .section-title p {
+  color: var(--accent-color) !important;
+}
+
+/* Ensure links inside these areas also use cream (but remain readable on hover) */
+#hero a, #portfolio .section-title a, #contact .section-title a {
+  color: var(--accent-color) !important;
+}
+#hero a:hover, #portfolio .section-title a:hover, #contact .section-title a:hover {
+  color: color-mix(in srgb, var(--accent-color), black 10%) !important;
+}
+
+/* Ensure HERO title accent and typed text use cream accent */
+#hero .hero-text h1,
+#hero .hero-text h1 .accent-text,
+#hero .hero-text .typed,
+#hero .hero-text .typed * {
+  color: var(--accent-color) !important;
+}
+
+#hero .hero-text .typed {
+  font-weight: 600;
+}
+
+/* If any earlier rule forces dark on the span, override it */
+#hero .hero-text h1 span, #hero .hero-text h1 .accent-text { color: var(--accent-color) !important; }
+
+/* Center all media files inside main content and portfolio/media sections */
+.main, .main .container, #portfolio, .portfolio, section.portfolio {
+  text-align: center; /* fallback for inline elements */
+}
+
+/* Ensure media elements are block-level and horizontally centered */
+.main img.img-fluid,
+.main video,img,
+.main video.img-fluid,
+.main audio.img-fluid,
+.main iframe {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Keep maximum widths and preserve aspect ratios */
+.main img.img-fluid,
+.main video.img-fluid,
+.main iframe,
+.main audio.img-fluid {
+  max-width: min(900px, 80vw) !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* For iframes ensure 16:9 aspect ratio when supported */
+.main iframe { aspect-ratio: 16 / 9; }
+
+/* Very small screens: full width with padding preserved */
+@media (max-width: 576px) {
+  .main img.img-fluid, .main video.img-fluid, .main iframe, .main audio.img-fluid { max-width: 100% !important; }
 }
