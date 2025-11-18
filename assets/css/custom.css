@@ -1,526 +1,240 @@
-/* Typography — custom styles */
+/* custom.css — minimal, focused rules to satisfy requested changes */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:wght@300;400;700&display=swap');
 
-:root {
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
-  --text-color: #2b2b2b;
+:root{
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-serif: 'Merriweather', Georgia, 'Times New Roman', serif;
+  --text-color: #0f1724;        /* primary readable text (dark) */
   --muted-color: #6b6b6b;
-  --accent-color: #f6ead0; /* light cream */
-  --accent-dark: #cfb78a;  /* darker tan for contrast */
-  --heading-color: #111827;
+  --accent-color: #f6ead0;      /* light cream (used for accents/hero/title) */
+  --accent-dark: #cfb78a;       /* tan (used for buttons/markers) */
   --section-padding: 3rem;
   --card-radius: 12px;
-  --card-border: rgba(16,24,40,0.06);
-  --card-bg: #ffffff;
   --card-shadow: 0 12px 30px rgba(16,24,40,0.06);
-  --bg-page: #fbfdff; /* very light page background to increase contrast with cards */
-  --header-dark-bg: #071428; /* darker header background for high contrast */
+  --contrast-color: #0f1724;    /* text on accent backgrounds */
+  --header-dark-bg: #071428;    /* keep header dark if present */
   --header-dark-text: #ffffff;
-  --footer-bg: #f3f6f9;
-  --contrast-color: #0f1724; /* dark text for readability */
 }
 
-/* Body / base paragraph */
-body {
-  font-family: var(--font-sans);
-  color: var(--text-color);
-  font-size: 16px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--bg-page);
+/* Base typography */
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:var(--font-sans);
+  color:var(--text-color);
+  background: #fbfdff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.6;
+  font-size:16px;
+}
+p{margin:0 0 1rem 0;color:var(--text-color);}
+
+/* Headings */
+h1,h2,h3,h4,h5,h6{font-family:var(--font-serif);color:var(--text-color);margin:0 0 .6rem 0}
+h1{font-size:2.6rem;font-weight:800}
+h2{font-size:2rem;font-weight:700}
+h3{font-size:1.6rem;font-weight:600}
+h4{font-size:1.25rem;font-weight:600}
+
+/* Hero accent (CV text) and typed text must be cream */
+#hero .hero-text h1 .accent-text,
+#hero .hero-text .typed { color:var(--accent-color) !important; }
+
+/* Sections */
+.section{padding:var(--section-padding) 0}
+.section .row > [class*="col-"]{margin-bottom:1rem}
+
+/* Cards / panels for About/Resume/Portfolio */
+.profile-card, .info-box, .resume-side, .resume-section{
+  background:#fff;
+  border-radius:var(--card-radius);
+  box-shadow:var(--card-shadow);
+  padding:1.25rem;
+  color:var(--contrast-color);
 }
 
-p {
-  font-size: 1rem;
-  color: var(--text-color);
-  font-weight: 400;
-  margin: 0 0 1.25rem 0;
-  letter-spacing: 0.01em;
-  line-height: 1.8;
-}
-
-/* Headings — use a serif for contrast to body text */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  color: var(--heading-color);
-  margin: 0 0 0.75rem 0;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
-
-h1 {
-  font-size: 2.6rem;
-  font-weight: 800;
-  color: var(--accent-dark) !important;
-  letter-spacing: -0.03em;
-  margin-top: 0.25rem;
-}
-
-h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent-dark) !important;
-  letter-spacing: -0.02em;
-}
-
-h3 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--accent-dark) !important;
-  letter-spacing: -0.01em;
-}
-
-h4 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #333947;
-  letter-spacing: 0em;
-}
-
-h5 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #444b56;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-h6 {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: #555b64;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-/* Uniform section spacing */
-.section {
-  padding: var(--section-padding) 0;
-}
-
-/* Ensure consistent spacing between grid columns inside sections */
-.section .row > [class*="col-"] {
-  margin-bottom: 1.25rem;
-}
-
-/* About card appearance */
-#about .profile-card {
-  background: var(--card-bg);
+/* Make resume-section background cream (contains the nested lists) */
+.resume-section {
+  background: var(--accent-color) !important;
+  color: var(--contrast-color) !important;
   border-radius: var(--card-radius);
-  border: 1px solid var(--card-border);
   box-shadow: var(--card-shadow);
   padding: 1.25rem;
-  transition: transform 180ms ease, box-shadow 180ms ease;
-}
-#about .profile-card:hover { transform: translateY(-6px); box-shadow: 0 18px 44px rgba(16,24,40,0.08); }
-
-#about .profile-header { border-bottom: 1px solid rgba(0,0,0,0.04); padding-bottom: 0.75rem; margin-bottom: 0.75rem; }
-#about .profile-content { padding-top: 0.25rem; }
-
-/* Resume blocks */
-#resume .resume-side,
-#resume .resume-section {
-  background-color: var(--accent-color) !important; /* same as .contact .info-box */
-  color: var(--contrast-color) !important;          /* same readable contrast color */
-  padding: 1.5rem !important;
-  border-radius: 1rem !important;
-  border: none !important;
-  box-shadow: none !important;
 }
 
-#resume .resume-item { padding: 0.75rem 0; border-bottom: none; }
-
-/* Portfolio media styling to visually separate pieces */
-#portfolio .img-fluid,
-#portfolio video.img-fluid,
-#portfolio audio.img-fluid,
-#portfolio iframe {
-  display: block;
-  width: 100%;
-  max-width: min(900px, 65vw); /* don't exceed large width or 65% of viewport */
-  height: auto; /* preserve aspect ratio */
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 10px;
-  border: 1px solid rgba(0,0,0,0.04);
-  box-shadow: 0 8px 28px rgba(16,24,40,0.06);
-  margin: 0 0 1.25rem 0;
-  background: #fff;
-  object-fit: cover; /* for video where supported */
+/* Buttons */
+.btn, button, input[type="button"], input[type="submit"]{
+  font-family:var(--font-sans);
+  font-weight:600;
+  padding:.55rem 1rem;
+  border-radius:10px;
+  border:0;
+  cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease, opacity .12s ease;
 }
-
-/* For iframe (YouTube) ensure responsive height based on width */
-#portfolio iframe {
-  aspect-ratio: 16 / 9;
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent-dark),var(--accent-color));
+  color:var(--text-color);
+  box-shadow:0 8px 22px rgba(31,25,10,0.06);
 }
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(31,25,10,0.08)}
+.btn-primary:active{transform:translateY(-1px) scale(.995);opacity:.95}
+.btn-primary:focus{outline:3px solid rgba(207,183,138,0.18);outline-offset:3px}
 
-/* Smaller max-width for very small screens to avoid overflow */
-@media (max-width: 576px) {
-  #portfolio .img-fluid,
-  #portfolio video.img-fluid,
-  #portfolio audio.img-fluid,
-  #portfolio iframe {
-    max-width: 100%;
-    width: 100%;
-  }
-}
+.btn-outline{background:transparent;color:var(--accent-dark);border:2px solid rgba(207,183,138,0.28)}
+.btn-outline:hover{background:rgba(207,183,138,0.06)}
 
-/* For gallery-like layout, keep images centered inside their containers */
-#portfolio img.img-fluid { display: block; margin: 0 auto 1.25rem; }
+/* Links */
+a{color:var(--accent-dark);text-decoration:none;font-weight:500}
+a:hover{color:color-mix(in srgb,var(--accent-dark),black 10%)}
+a:focus{outline:4px solid color-mix(in srgb,var(--accent-dark),black 10%);outline-offset:3px}
 
-/* Section titles slightly separated */
-.section-title h2,
-.section .section-title h2 {
-  margin-bottom: 1rem;
-  padding-bottom: 0.25rem;
-}
+/* Progress bars */
+.progress{height:14px;background:linear-gradient(180deg,rgba(16,24,40,0.02),rgba(16,24,40,0.01));border-radius:999px;padding:2px;box-shadow:inset 0 3px 8px rgba(0,0,0,0.04);overflow:hidden}
+.progress .progress-bar{border-radius:999px;background:linear-gradient(90deg,var(--accent-dark),var(--accent-color));transition:width .8s cubic-bezier(.2,.9,.3,1)}
+.progress .progress-bar::after{content:'';position:absolute;inset:0;background-image:linear-gradient(45deg,rgba(255,255,255,0.12) 25%, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.12) 50%);background-size:36px 36px;opacity:.12;mix-blend-mode:overlay;animation:progress-stripes 2s linear infinite}
+@keyframes progress-stripes{from{background-position:0 0}to{background-position:36px 0}}
 
-/* Tighter title spacing inside cards */
-.profile-card h3, .resume-section h3 { margin-bottom: 0.5rem; }
+/* Media: center and limit size */
+.main img.img-fluid, .main video.img-fluid, .main iframe, .main audio.img-fluid{display:block;margin:0 auto 1.25rem;max-width:min(900px,80vw);width:100%;height:auto}
+#portfolio .img-fluid, #media .img-fluid{max-width:min(900px,65vw)}
+#portfolio iframe, #media iframe{aspect-ratio:16/9}
 
-/* Improve progress bar contrast when inside resume (skills) */
-#resume .skill-item .progress {
-  background: color-mix(in srgb, var(--contrast-color), transparent 88%);
-  height: 14px;
-  border-radius: 999px;
-  padding: 2px;
-}
-#resume .skill-item .progress .progress-bar {
-  background: linear-gradient(90deg, var(--contrast-color) 0%, color-mix(in srgb, var(--contrast-color), white 30%) 100%);
-  box-shadow: none;
-}
-
-/* Ensure percentage labels remain readable */
-#resume .skill-item span:last-child { color: var(--contrast-color) !important; font-weight: 700; }
-
-/* Small screens: reduce paddings to preserve space */
-@media (max-width: 768px) {
-  :root { --section-padding: 2rem; }
-  .section .row > [class*="col-"] { margin-bottom: 0.9rem; }
-  #about .profile-card, #resume .resume-side, #resume .resume-section { padding: 0.9rem; }
-}
-
-/* Buttons — custom styles */
-.btn, button, input[type="button"], input[type="submit"] {
-  display: inline-block;
-  font-family: var(--font-sans);
-  font-weight: 600;
-  text-decoration: none;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  border: 0;
-  cursor: pointer;
-  transition: transform 150ms ease, box-shadow 150ms ease, opacity 120ms ease;
-  user-select: none;
-  box-shadow: 0 6px 18px rgba(10,102,194,0.12);
-}
-
-/* Primary button with subtle gradient to differ from template */
-.btn-primary {
-  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-color) 100%) !important;
-  color: #0f1724 !important; /* dark text for readability */
-  padding: 0.7rem 1.2rem;
-  letter-spacing: 0.02em;
-  border-radius: 12px;
-}
-
-.btn-primary:hover {
-  box-shadow: 0 14px 36px rgba(31,25,10,0.08) !important;
-  transform: translateY(-3px) !important;
-}
-
-.btn-primary:active {
-  transform: translateY(-1px) scale(0.995);
-  opacity: 0.95;
-}
-
-.btn-primary:focus {
-  outline: 3px solid rgba(10,102,194,0.16);
-  outline-offset: 3px;
-}
-
-/* Outline / ghost button */
-.btn-outline {
-  color: var(--accent-dark) !important;
-  border: 2px solid var(--accent-border) !important;
-  background: transparent;
-  box-shadow: none;
-}
-
-.btn-outline:hover {
-  background: rgba(207,183,138,0.06) !important;
-  transform: translateY(-2px);
-}
-
-/* Small and large utility sizes */
-.btn-sm { padding: 0.35rem 0.6rem; font-size: 0.9rem; border-radius: 8px; }
-.btn-lg { padding: 0.95rem 1.6rem; font-size: 1.05rem; border-radius: 14px; }
-
-/* Disabled state */
-.btn[disabled], .btn.disabled {
-  opacity: 0.5;
-  pointer-events: none;
+/* Lists: custom ordered and unordered with nested counters */
+ol{counter-reset:item;margin-left:0;padding-left:1rem;list-style:none}
+ol li{counter-increment:item;position:relative;padding-left:2.2rem;margin-bottom:.5rem;min-height:1.6rem}
+ol li::before{
+  /* align number badge to top of the list item (not vertically centered) */
+  content: counters(item,'.') '.';
+  position: absolute;
+  left: 0;
+  top: 0.15rem; /* align near top */
   transform: none;
-  box-shadow: none;
+  width: 1.8rem;
+  height: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--accent-dark);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(15,23,36,0.06);
+  font-size: 0.9rem;
+}
+ol li ol{margin-top:.4rem;padding-left:.8rem}
+
+ul{margin-left:0;padding-left:1rem;list-style:none}
+ul li{position:relative;padding-left:1.8rem;margin-bottom:.45rem;min-height:1.4rem}
+ul li::before{content:'';position:absolute;left:.2rem;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:2px;background:var(--accent-dark)}
+ul li ul li::before{content:'-';background:transparent;color:var(--accent-dark);left:.25rem}
+
+/* Resume: show outer numbers inline (no round badge) */
+.resume-section ol{counter-reset:item;padding-left:.6rem;margin-left:0;list-style:none}
+.resume-section ol > li{counter-increment:item;position:relative;padding-left:1.4rem;margin-bottom:.6rem}
+.resume-section ol > li::before{
+  content: counters(item,'.') '.';
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  transform: none;
+  font-weight:700;
+  color:var(--accent-dark);
+  background:transparent;
+  padding:0;
+  margin-right:.35rem;
+  box-shadow:none;
+  font-size:1rem;
+}
+.resume-section ol li ol{padding-left:0}
+
+/* Hero / Portfolio / Contact titles use cream accent */
+#hero .hero-text h1, #hero .hero-text h2, #hero .hero-text p, #portfolio .section-title h2, #contact .section-title h2, #contact .section-title p, #media .section-title h2{color:var(--accent-color) !important}
+
+/* Ensure header dark bg text readable if header present */
+.header.dark-background{background-color:var(--header-dark-bg) !important;color:var(--header-dark-text) !important}
+.header.dark-background *{color:var(--header-dark-text) !important}
+
+/* Accessibility: ensure readable text on cards and important elements */
+.profile-card, .info-box, .resume-side, .resume-section{color:var(--contrast-color) !important}
+.progress-bar[aria-valuenow], .small, .lead, .company, .profession{color:var(--contrast-color) !important}
+
+/* Services table styling */
+.services-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-family: var(--font-sans);
+}
+.services-table thead th {
+  background: linear-gradient(90deg,var(--accent-dark), color-mix(in srgb,var(--accent-dark), black 10%));
+  color: #fff;
+  padding: 0.95rem 0.8rem;
+  text-align: center;
+  font-weight: 700;
+  border-radius: 6px;
+}
+.services-table th, .services-table td {
+  padding: 0.85rem 0.8rem;
+  border: 1px solid rgba(15,23,36,0.06);
+  text-align: center;
+  vertical-align: middle;
+}
+.services-table tbody tr:nth-child(even) { background: color-mix(in srgb,var(--accent-color), white 90%); }
+.services-table tbody tr:hover { background: color-mix(in srgb,var(--accent-dark), white 85%); transform: translateY(-1px); }
+
+/* Ensure Services table contrasts on dark backgrounds */
+.services .table-responsive {
+  background: var(--accent-color); /* cream panel behind the table */
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
 }
 
-/* Links — custom styles */
-a {
-  color: var(--accent-dark) !important;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 140ms ease, transform 120ms ease, text-decoration-color 120ms ease;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 2px;
-  text-decoration-color: transparent;
+.services-table {
+  background: transparent;
+  color: var(--contrast-color);
 }
 
-a:hover {
-  color: var(--accent-dark) !important;
-  text-decoration-color: rgba(207,183,138,0.18) !important;
-  transform: none !important;
+.services-table thead th {
+  background: var(--accent-dark);
+  color: #ffffff;
+  padding: 0.95rem 0.8rem;
+  text-align: center;
+  font-weight: 700;
 }
 
-a:active { color: #05355f; opacity: 0.95; }
-
-a:focus {
-  outline: 4px solid rgba(10,102,194,0.18);
-  outline-offset: 3px;
+.services-table th, .services-table td {
+  padding: 0.85rem 0.8rem;
+  border: 1px solid rgba(15,23,36,0.06);
+  text-align: center;
+  vertical-align: middle;
+  color: var(--contrast-color);
+  background: transparent;
 }
 
-a:visited { color: #5a5f6a; }
+/* Lighter zebra rows on cream background */
+.services-table tbody tr:nth-child(even) { background: rgba(255,255,255,0.30); }
+.services-table tbody tr:nth-child(odd) { background: transparent; }
 
-/* External link indicator example */
-a.external::after {
-  content: ' ↗';
-  color: var(--accent-dark);
+/* Hover: slightly darker cream to indicate interactivity */
+.services-table tbody tr:hover { background: rgba(207,183,138,0.12); transform: translateY(-1px); }
+
+/* When the services section is inside a dark-background, make sure the panel still reads well */
+.dark-background .services .table-responsive {
+  background: var(--accent-color);
 }
 
-/* Make sure buttons inside links behave well */
-a .btn { vertical-align: middle; }
-
-/* Small accessibility tweak: increase hit area on touch */
-@media (pointer: coarse) {
-  .btn, a { padding: 0.9rem 1rem; }
+@media (max-width:768px){
+  .services-table thead{display:none}
+  .services-table, .services-table tbody, .services-table tr, .services-table td{display:block;width:100%}
+  .services-table tr{margin-bottom:1rem}
+  .services-table td{text-align:left;padding:0.6rem}
+  .services-table td:before{content:attr(data-label);font-weight:700;display:block;margin-bottom:0.35rem}
 }
 
-/* Navigation menu — new visual style */
-/* #navmenu, .header-toggle { display: none !important; } /* Hide left navigation */
+/* Small screens adjustments */
+@media (max-width:768px){:root{--section-padding:2rem}.main img.img-fluid,.main video.img-fluid,.main iframe{max-width:100%}}
 
-/* Adjust header layout after hiding nav */
-.header .header-container { align-items: center; }
-
-/* Update headings and elements that used blue to use cream/tan accents */
-h1 { color: var(--accent-dark) !important; }
-h2, h3 { color: var(--accent-dark) !important; }
-
-/* Buttons: use cream/tan gradient and dark text for contrast */
-.btn-primary {
-  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-color) 100%) !important;
-  color: #0f1724 !important; /* dark text for readability */
-  box-shadow: 0 8px 22px rgba(31,25,10,0.06) !important;
-}
-.btn-primary:hover { box-shadow: 0 14px 36px rgba(31,25,10,0.08) !important; transform: translateY(-3px) !important; }
-
-.btn-outline {
-  color: var(--accent-dark) !important;
-  border: 2px solid var(--accent-border) !important;
-}
-.btn-outline:hover { background: rgba(207,183,138,0.06) !important; }
-
-/* Links: convert previous blue to darker tan for visibility */
-a { color: var(--accent-dark) !important; }
-a:hover { color: var(--accent-dark) !important; text-decoration-color: rgba(207,183,138,0.18) !important; transform: none !important; }
-
-a.external::after { content: ' ↗'; color: var(--accent-dark); }
-
-/* Progress bar gradient use tan -> cream */
-.progress .progress-bar { background: linear-gradient(90deg, var(--accent-dark) 0%, var(--accent-color) 100%) !important; box-shadow: 0 8px 18px rgba(31,25,10,0.06) !important; }
-
-/* Nav-specific styles removed but ensure no stray blue icons remain */
-#navmenu .navicon, .navicon { color: var(--accent-dark) !important; }
-
-/* Ensure header dark background text remains readable */
-.header.dark-background a, .header.dark-background .social-links a { color: var(--header-dark-text) !important; }
-
-/* Make sure contrast for cream elements is readable on light page background */
-.btn-primary, .profile-card, #resume .resume-side, #resume .resume-section { color: #0f1724 !important; }
-
-/* Contrast improvements and accessible color tuning */
-:root {
-  --bg-page: #fbfdff; /* very light page background to increase contrast with cards */
-  --header-dark-bg: #071428; /* darker header background for high contrast */
-  --header-dark-text: #ffffff;
-  --footer-bg: #f3f6f9;
-}
-
-/* Header (dark) contrast adjustments */
-.header.dark-background {
-  background-color: var(--header-dark-bg) !important;
-  color: var(--header-dark-text) !important;
-}
-.header.dark-background a,
-.header.dark-background .navmenu li a,
-.header.dark-background .social-links a {
-  color: var(--header-dark-text) !important;
-}
-.header.dark-background .navmenu li a:hover,
-.header.dark-background .navmenu li a.active {
-  color: #fff !important;
-}
-
-/* Ensure card contents use a dark readable color */
-.profile-card,
-#resume .resume-side,
-#resume .resume-section {
-  color: #0f1724; /* ensures strong contrast vs card background */
-}
-
-/* Links: higher contrast on focus/hover */
-a:focus {
-  outline: 4px solid rgba(10,102,194,0.18);
-  outline-offset: 3px;
-}
-
-a,
-.btn-outline {
-  /* make outline/link borders a bit stronger for visibility */
-  --accent-border: rgba(10,102,194,0.28);
-}
-
-.btn-outline {
-  border: 2px solid var(--accent-border);
-}
-
-/* Footer contrast */
-.footer {
-  background: var(--footer-bg);
-  color: #374151;
-}
-.footer a { color: var(--accent-color); font-weight: 600; }
-
-/* Ensure progress label contrast when bar is small: add subtle text-shadow */
-.progress-bar[aria-valuenow] {
-  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
-}
-
-/* Decorative focus for interactive elements to meet contrast on focus */
-button:focus, .btn:focus, input[type="button"]:focus, input[type="submit"]:focus {
-  outline: 4px solid rgba(10,102,194,0.18);
-  outline-offset: 2px;
-}
-
-/* Small screen override to keep contrasts intact */
-@media (max-width: 768px) {
-  .header.dark-background { background-color: var(--header-dark-bg); }
-}
-
-/* Final contrast / accessibility overrides — TEXT ONLY (no background changes) */
-:root {
-  --text-override: #0f1724;   /* dark primary text */
-  --link-override: #5a4630;   /* darker tan for links */
-  --card-text-override: #0f1724;
-}
-
-/* Apply text color overrides (do not change backgrounds) */
-body, .main { color: var(--text-override) !important; }
-p, span, li, small, .lead, .description { color: var(--text-override) !important; }
-h1, h2, h3, h4, h5, h6 { color: var(--text-override) !important; }
-
-a { color: var(--link-override) !important; }
-a:hover, a:focus { color: color-mix(in srgb, var(--link-override), black 10%) !important; text-decoration-color: currentColor !important; }
-a:visited { color: color-mix(in srgb, var(--link-override), black 30%) !important; }
-
-/* Buttons/text inside controls */
-.btn, .btn-primary, .btn-outline, button { color: var(--text-override) !important; }
-
-/* Keep header dark text white when header uses dark background */
-.header.dark-background, .header.dark-background * { color: var(--header-dark-text) !important; }
-
-/* Cards / info-boxes: only adjust text color, do not force background */
-.profile-card, .info-box, #resume .resume-side, #resume .resume-section { color: var(--card-text-override) !important; }
-
-/* Progress labels and small text */
-.progress-bar[aria-valuenow], .small, .lead, .company, .profession { color: var(--card-text-override) !important; }
-
-/* Icons */
-.icon-box i, .bi { color: var(--card-text-override) !important; }
-
-/* Replace any remaining white text on light backgrounds with readable dark text */
-[style*="color: white"], .text-white { color: var(--text-override) !important; }
-
-/* Stronger focus outlines (color uses link override) */
-:focus { outline: 4px solid color-mix(in srgb, var(--link-override), black 10%) !important; outline-offset: 3px !important; }
-
-/* Cream text for non-card content (Hero, Portfolio title, Contact title/paragraph) */
-#hero, #hero .hero-text, #hero .hero-text h1, #hero .hero-text h2, #hero .hero-text p {
-  color: var(--accent-color) !important;
-}
-
-#portfolio .section-title h2 {
-  color: var(--accent-color) !important;
-}
-
-#contact .section-title h2,
-#contact .section-title p {
-  color: var(--accent-color) !important;
-}
-
-/* Ensure links inside these areas also use cream (but remain readable on hover) */
-#hero a, #portfolio .section-title a, #contact .section-title a {
-  color: var(--accent-color) !important;
-}
-#hero a:hover, #portfolio .section-title a:hover, #contact .section-title a:hover {
-  color: color-mix(in srgb, var(--accent-color), black 10%) !important;
-}
-
-/* Ensure HERO title accent and typed text use cream accent */
-#hero .hero-text h1,
-#hero .hero-text h1 .accent-text,
-#hero .hero-text .typed,
-#hero .hero-text .typed * {
-  color: var(--accent-color) !important;
-}
-
-#hero .hero-text .typed {
-  font-weight: 600;
-}
-
-/* If any earlier rule forces dark on the span, override it */
-#hero .hero-text h1 span, #hero .hero-text h1 .accent-text { color: var(--accent-color) !important; }
-
-/* Center all media files inside main content and portfolio/media sections */
-.main, .main .container, #portfolio, .portfolio, section.portfolio {
-  text-align: center; /* fallback for inline elements */
-}
-
-/* Ensure media elements are block-level and horizontally centered */
-.main img.img-fluid,
-.main video,img,
-.main video.img-fluid,
-.main audio.img-fluid,
-.main iframe {
-  display: block !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-/* Keep maximum widths and preserve aspect ratios */
-.main img.img-fluid,
-.main video.img-fluid,
-.main iframe,
-.main audio.img-fluid {
-  max-width: min(900px, 80vw) !important;
-  width: 100% !important;
-  height: auto !important;
-}
-
-/* For iframes ensure 16:9 aspect ratio when supported */
-.main iframe { aspect-ratio: 16 / 9; }
-
-/* Very small screens: full width with padding preserved */
-@media (max-width: 576px) {
-  .main img.img-fluid, .main video.img-fluid, .main iframe, .main audio.img-fluid { max-width: 100% !important; }
-}
+/* End of custom.css */
