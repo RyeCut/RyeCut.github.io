@@ -6,7 +6,8 @@
   --font-serif: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
   --text-color: #2b2b2b;
   --muted-color: #6b6b6b;
-  --accent-color: #0a66c2;
+  --accent-color: #f6ead0; /* light cream */
+  --accent-dark: #cfb78a;  /* darker tan for contrast */
   --heading-color: #111827;
   --section-padding: 3rem;
   --card-radius: 12px;
@@ -51,7 +52,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 2.6rem;
   font-weight: 800;
-  color: var(--accent-color);
+  color: var(--accent-dark) !important;
   letter-spacing: -0.03em;
   margin-top: 0.25rem;
 }
@@ -59,14 +60,14 @@ h1 {
 h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: #173e6e;
+  color: var(--accent-dark) !important;
   letter-spacing: -0.02em;
 }
 
 h3 {
   font-size: 1.6rem;
   font-weight: 600;
-  color: #2a4b6f;
+  color: var(--accent-dark) !important;
   letter-spacing: -0.01em;
 }
 
@@ -178,16 +179,16 @@ h6 {
 
 /* Primary button with subtle gradient to differ from template */
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-color) 0%, #0a7bd6 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-color) 100%) !important;
+  color: #0f1724 !important; /* dark text for readability */
   padding: 0.7rem 1.2rem;
   letter-spacing: 0.02em;
   border-radius: 12px;
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(10,102,194,0.18);
+  box-shadow: 0 14px 36px rgba(31,25,10,0.08) !important;
+  transform: translateY(-3px) !important;
 }
 
 .btn-primary:active {
@@ -202,14 +203,14 @@ h6 {
 
 /* Outline / ghost button */
 .btn-outline {
+  color: var(--accent-dark) !important;
+  border: 2px solid var(--accent-border) !important;
   background: transparent;
-  color: var(--accent-color);
-  border: 2px solid rgba(10,102,194,0.14);
   box-shadow: none;
 }
 
 .btn-outline:hover {
-  background: rgba(10,102,194,0.06);
+  background: rgba(207,183,138,0.06) !important;
   transform: translateY(-2px);
 }
 
@@ -227,7 +228,7 @@ h6 {
 
 /* Links — custom styles */
 a {
-  color: var(--accent-color);
+  color: var(--accent-dark) !important;
   text-decoration: none;
   font-weight: 500;
   transition: color 140ms ease, transform 120ms ease, text-decoration-color 120ms ease;
@@ -237,9 +238,9 @@ a {
 }
 
 a:hover {
-  color: #084c86;
-  text-decoration-color: rgba(10,102,194,0.18);
-  transform: translateY(-1px);
+  color: var(--accent-dark) !important;
+  text-decoration-color: rgba(207,183,138,0.18) !important;
+  transform: none !important;
 }
 
 a:active { color: #05355f; opacity: 0.95; }
@@ -254,9 +255,7 @@ a:visited { color: #5a5f6a; }
 /* External link indicator example */
 a.external::after {
   content: ' ↗';
-  font-size: 0.9em;
-  opacity: 0.7;
-  margin-left: 0.18rem;
+  color: var(--accent-dark);
 }
 
 /* Make sure buttons inside links behave well */
@@ -268,91 +267,46 @@ a .btn { vertical-align: middle; }
 }
 
 /* Navigation menu — new visual style */
-#navmenu.navmenu {
-  background: transparent;
-  padding: 0.6rem 0.5rem;
-  border-radius: 14px;
-  max-width: 280px;
+/* #navmenu, .header-toggle { display: none !important; } /* Hide left navigation */
+
+/* Adjust header layout after hiding nav */
+.header .header-container { align-items: center; }
+
+/* Update headings and elements that used blue to use cream/tan accents */
+h1 { color: var(--accent-dark) !important; }
+h2, h3 { color: var(--accent-dark) !important; }
+
+/* Buttons: use cream/tan gradient and dark text for contrast */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-color) 100%) !important;
+  color: #0f1724 !important; /* dark text for readability */
+  box-shadow: 0 8px 22px rgba(31,25,10,0.06) !important;
 }
+.btn-primary:hover { box-shadow: 0 14px 36px rgba(31,25,10,0.08) !important; transform: translateY(-3px) !important; }
 
-#navmenu.navmenu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+.btn-outline {
+  color: var(--accent-dark) !important;
+  border: 2px solid var(--accent-border) !important;
 }
+.btn-outline:hover { background: rgba(207,183,138,0.06) !important; }
 
-#navmenu.navmenu li a {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--muted-color);
-  padding: 0.5rem 0.8rem;
-  border-radius: 10px;
-  transition: all 180ms ease;
-  font-weight: 600;
-}
+/* Links: convert previous blue to darker tan for visibility */
+a { color: var(--accent-dark) !important; }
+a:hover { color: var(--accent-dark) !important; text-decoration-color: rgba(207,183,138,0.18) !important; transform: none !important; }
 
-#navmenu.navmenu li a .navicon { color: rgba(10,102,194,0.9); font-size: 1.05rem; }
+a.external::after { content: ' ↗'; color: var(--accent-dark); }
 
-#navmenu.navmenu li a:hover,
-#navmenu.navmenu li a.active {
-  color: #ffffff;
-  background: linear-gradient(90deg, rgba(10,102,194,0.95), rgba(10,123,214,0.92));
-  transform: translateX(6px);
-  box-shadow: 0 10px 30px rgba(10,102,194,0.12);
-}
+/* Progress bar gradient use tan -> cream */
+.progress .progress-bar { background: linear-gradient(90deg, var(--accent-dark) 0%, var(--accent-color) 100%) !important; box-shadow: 0 8px 18px rgba(31,25,10,0.06) !important; }
 
-/* Keep small screens compact */
-@media (max-width: 992px) {
-  #navmenu.navmenu { max-width: 100%; padding: 0.4rem; }
-  #navmenu.navmenu li a { padding: 0.45rem 0.6rem; }
-}
+/* Nav-specific styles removed but ensure no stray blue icons remain */
+#navmenu .navicon, .navicon { color: var(--accent-dark) !important; }
 
-/* Progress bars — refreshed look with subtle animation */
-.progress {
-  height: 14px;
-  background: linear-gradient(180deg, rgba(16,24,40,0.02), rgba(16,24,40,0.01));
-  border-radius: 999px;
-  padding: 2px;
-  box-shadow: inset 0 3px 8px rgba(0,0,0,0.04);
-  overflow: hidden;
-}
+/* Ensure header dark background text remains readable */
+.header.dark-background a, .header.dark-background .social-links a { color: var(--header-dark-text) !important; }
 
-.progress .progress-bar {
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent-color) 0%, #0a7bd6 100%);
-  box-shadow: 0 8px 22px rgba(10,102,194,0.12);
-  transition: width 800ms cubic-bezier(.2,.9,.3,1);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Animated diagonal stripes to indicate progress without JS changes */
-.progress .progress-bar::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(45deg, rgba(255,255,255,0.12) 25%, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.12) 50%);
-  background-size: 36px 36px;
-  opacity: 0.14;
-  mix-blend-mode: overlay;
-  animation: progress-stripes 2s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes progress-stripes {
-  from { background-position: 0 0; }
-  to   { background-position: 36px 0; }
-}
-
-/* Ensure progress labels remain readable */
-.progress-bar[aria-valuenow] { color: #fff; font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; }
-
-/* Slightly enlarge resume skill percentages for emphasis */
-#resume .skill-item span:last-child { font-weight: 700; color: var(--heading-color); }
+/* Make sure contrast for cream elements is readable on light page background */
+.btn-primary, .profile-card, #resume .resume-side, #resume .resume-section { color: #0f1724 !important; }
 
 /* Contrast improvements and accessible color tuning */
 :root {
