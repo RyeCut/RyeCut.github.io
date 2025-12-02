@@ -386,25 +386,16 @@ h6 {
 #preloader:before {
   content: "";
   position: fixed;
-  top: calc(50% - 30px);
-  left: calc(50% - 30px);
+  top: calc(50% - 60px);
+  left: calc(50% - 60px);
   border: 6px solid #ffffff;
-  border-color: var(--accent-color) transparent var(--accent-color) transparent;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: animate-preloader 1.5s linear infinite;
+  border-color: #ff0000 transparent #1eff00 transparent;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
 }
 
-@keyframes animate-preloader {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
+/* animate-preloader keyframes moved to custom.css so reduced-motion rules can be centralized */
 
 /*--------------------------------------------------------------
 # Scroll Top Button

@@ -1,240 +1,154 @@
-/* custom.css — minimal, focused rules to satisfy requested changes */
+/* custom.css — cleaned minimal stylesheet */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:wght@300;400;700&display=swap');
 
 :root{
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-serif: 'Merriweather', Georgia, 'Times New Roman', serif;
-  --text-color: #0f1724;        /* primary readable text (dark) */
+  --text-color: #0f1724;
   --muted-color: #6b6b6b;
-  --accent-color: #f6ead0;      /* light cream (used for accents/hero/title) */
-  --accent-dark: #cfb78a;       /* tan (used for buttons/markers) */
+  --accent-color: #f6ead0; /* cream */
+  --accent-dark: #cfb78a;  /* tan */
   --section-padding: 3rem;
   --card-radius: 12px;
   --card-shadow: 0 12px 30px rgba(16,24,40,0.06);
-  --contrast-color: #0f1724;    /* text on accent backgrounds */
-  --header-dark-bg: #071428;    /* keep header dark if present */
+  --contrast-color: #0f1724;
+  --header-dark-bg: #071428;
   --header-dark-text: #ffffff;
 }
 
-/* Base typography */
+/* Base */
 html,body{height:100%;}
 body{
   margin:0;
   font-family:var(--font-sans);
   color:var(--text-color);
-  background: #fbfdff;
+  background:#fbfdff;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   line-height:1.6;
   font-size:16px;
 }
-p{margin:0 0 1rem 0;color:var(--text-color);}
+p{margin:0 0 1rem 0}
 
 /* Headings */
-h1,h2,h3,h4,h5,h6{font-family:var(--font-serif);color:var(--text-color);margin:0 0 .6rem 0}
+h1,h2,h3,h4{font-family:var(--font-serif);color:var(--text-color);margin:0 0 .6rem 0}
 h1{font-size:2.6rem;font-weight:800}
 h2{font-size:2rem;font-weight:700}
 h3{font-size:1.6rem;font-weight:600}
-h4{font-size:1.25rem;font-weight:600}
 
-/* Hero accent (CV text) and typed text must be cream */
-#hero .hero-text h1 .accent-text,
-#hero .hero-text .typed { color:var(--accent-color) !important; }
-
-/* Sections */
+/* Sections and cards */
 .section{padding:var(--section-padding) 0}
 .section .row > [class*="col-"]{margin-bottom:1rem}
-
-/* Cards / panels for About/Resume/Portfolio */
-.profile-card, .info-box, .resume-side, .resume-section{
-  background:#fff;
-  border-radius:var(--card-radius);
-  box-shadow:var(--card-shadow);
-  padding:1.25rem;
-  color:var(--contrast-color);
+.profile-card,.info-box,.resume-side,.resume-section{
+  background:#fff;border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:1.25rem;color:var(--contrast-color)
 }
+.resume-section{background:var(--accent-color)!important}
 
-/* Make resume-section background cream (contains the nested lists) */
-.resume-section {
-  background: var(--accent-color) !important;
-  color: var(--contrast-color) !important;
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
-  padding: 1.25rem;
-}
+/* Hero accent (ensure CV and typed text are cream) */
+#hero .hero-text h1 .accent-text,#hero .hero-text .typed{color:var(--accent-color)!important}
 
 /* Buttons */
-.btn, button, input[type="button"], input[type="submit"]{
-  font-family:var(--font-sans);
-  font-weight:600;
-  padding:.55rem 1rem;
-  border-radius:10px;
-  border:0;
-  cursor:pointer;
-  transition:transform .15s ease, box-shadow .15s ease, opacity .12s ease;
-}
-.btn-primary{
-  background:linear-gradient(135deg,var(--accent-dark),var(--accent-color));
-  color:var(--text-color);
-  box-shadow:0 8px 22px rgba(31,25,10,0.06);
-}
+.btn,button,input[type="button"],input[type="submit"]{font-family:var(--font-sans);font-weight:600;padding:.55rem 1rem;border-radius:10px;border:0;cursor:pointer;transition:transform .15s,box-shadow .15s,opacity .12s}
+.btn-primary{background:linear-gradient(135deg,var(--accent-dark),var(--accent-color));color:var(--text-color);box-shadow:0 8px 22px rgba(31,25,10,0.06)}
 .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(31,25,10,0.08)}
-.btn-primary:active{transform:translateY(-1px) scale(.995);opacity:.95}
-.btn-primary:focus{outline:3px solid rgba(207,183,138,0.18);outline-offset:3px}
-
 .btn-outline{background:transparent;color:var(--accent-dark);border:2px solid rgba(207,183,138,0.28)}
-.btn-outline:hover{background:rgba(207,183,138,0.06)}
 
 /* Links */
 a{color:var(--accent-dark);text-decoration:none;font-weight:500}
 a:hover{color:color-mix(in srgb,var(--accent-dark),black 10%)}
-a:focus{outline:4px solid color-mix(in srgb,var(--accent-dark),black 10%);outline-offset:3px}
 
-/* Progress bars */
-.progress{height:14px;background:linear-gradient(180deg,rgba(16,24,40,0.02),rgba(16,24,40,0.01));border-radius:999px;padding:2px;box-shadow:inset 0 3px 8px rgba(0,0,0,0.04);overflow:hidden}
-.progress .progress-bar{border-radius:999px;background:linear-gradient(90deg,var(--accent-dark),var(--accent-color));transition:width .8s cubic-bezier(.2,.9,.3,1)}
-.progress .progress-bar::after{content:'';position:absolute;inset:0;background-image:linear-gradient(45deg,rgba(255,255,255,0.12) 25%, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.12) 50%);background-size:36px 36px;opacity:.12;mix-blend-mode:overlay;animation:progress-stripes 2s linear infinite}
-@keyframes progress-stripes{from{background-position:0 0}to{background-position:36px 0}}
+/* Progress */
+.progress{height:14px;border-radius:999px;padding:2px;background:linear-gradient(180deg,rgba(16,24,40,0.02),rgba(16,24,40,0.01));box-shadow:inset 0 3px 8px rgba(0,0,0,0.04);overflow:hidden}
+.progress .progress-bar{border-radius:999px;background:linear-gradient(90deg,var(--accent-dark),var(--accent-color));transition:width .8s}
 
-/* Media: center and limit size */
-.main img.img-fluid, .main video.img-fluid, .main iframe, .main audio.img-fluid{display:block;margin:0 auto 1.25rem;max-width:min(900px,80vw);width:100%;height:auto}
-#portfolio .img-fluid, #media .img-fluid{max-width:min(900px,65vw)}
-#portfolio iframe, #media iframe{aspect-ratio:16/9}
+/* Media: center and constrain */
+.main img.img-fluid,.main video.img-fluid,.main iframe,.main audio.img-fluid{display:block;margin:0 auto 1.25rem;max-width:min(900px,80vw);width:100%;height:auto}
+#portfolio .img-fluid,#media .img-fluid{max-width:min(900px,65vw)}
+#portfolio iframe,#media iframe{aspect-ratio:16/9}
 
-/* Lists: custom ordered and unordered with nested counters */
+/* Lists: ordered with hierarchical counters and unordered with custom markers */
 ol{counter-reset:item;margin-left:0;padding-left:1rem;list-style:none}
-ol li{counter-increment:item;position:relative;padding-left:2.2rem;margin-bottom:.5rem;min-height:1.6rem}
-ol li::before{
-  /* align number badge to top of the list item (not vertically centered) */
-  content: counters(item,'.') '.';
-  position: absolute;
-  left: 0;
-  top: 0.15rem; /* align near top */
-  transform: none;
-  width: 1.8rem;
-  height: 1.8rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: var(--accent-dark);
-  color: #ffffff;
-  font-weight: 700;
-  box-shadow: 0 4px 10px rgba(15,23,36,0.06);
-  font-size: 0.9rem;
-}
+ol li{counter-increment:item;position:relative;padding-left:2.2rem;margin-bottom:.5rem}
+ol li::before{content:counters(item,'.')'.';position:absolute;left:0;top:.15rem;width:1.8rem;height:1.8rem;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:var(--accent-color);color:var(--accent-dark);font-weight:700;box-shadow:0 3px 8px rgba(15,23,36,0.04);font-size:.9rem}
 ol li ol{margin-top:.4rem;padding-left:.8rem}
 
 ul{margin-left:0;padding-left:1rem;list-style:none}
-ul li{position:relative;padding-left:1.8rem;margin-bottom:.45rem;min-height:1.4rem}
+ul li{position:relative;padding-left:1.8rem;margin-bottom:.45rem}
 ul li::before{content:'';position:absolute;left:.2rem;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:2px;background:var(--accent-dark)}
-ul li ul li::before{content:'-';background:transparent;color:var(--accent-dark);left:.25rem}
 
-/* Resume: show outer numbers inline (no round badge) */
+/* Resume: outer numbers inline (left-aligned) */
 .resume-section ol{counter-reset:item;padding-left:.6rem;margin-left:0;list-style:none}
-.resume-section ol > li{counter-increment:item;position:relative;padding-left:1.4rem;margin-bottom:.6rem}
-.resume-section ol > li::before{
-  content: counters(item,'.') '.';
-  position: absolute;
-  left: 0;
-  top: 0.15rem;
-  transform: none;
-  font-weight:700;
-  color:var(--accent-dark);
-  background:transparent;
-  padding:0;
-  margin-right:.35rem;
-  box-shadow:none;
-  font-size:1rem;
-}
+.resume-section ol>li{counter-increment:item;position:relative;padding-left:1.4rem;margin-bottom:.6rem}
+.resume-section ol>li::before{content:counters(item,'.')'.';position:absolute;left:0;top:.15rem;background:transparent;color:var(--accent-dark);font-weight:700;padding:0;margin-right:.35rem}
 .resume-section ol li ol{padding-left:0}
 
-/* Hero / Portfolio / Contact titles use cream accent */
-#hero .hero-text h1, #hero .hero-text h2, #hero .hero-text p, #portfolio .section-title h2, #contact .section-title h2, #contact .section-title p, #media .section-title h2{color:var(--accent-color) !important}
+/* Services table styling (clean and readable) */
+.services .table-responsive{background:var(--accent-color);padding:1rem;border-radius:12px;box-shadow:var(--card-shadow)}
+.services-table{width:100%;border-collapse:collapse;margin:1rem 0;font-family:var(--font-sans)}
+.services-table thead th{background:var(--accent-dark);color:#fff;padding:.95rem .8rem;text-align:center;font-weight:700}
+.services-table th,.services-table td{padding:.85rem .8rem;border:1px solid rgba(15,23,36,0.06);text-align:center}
+.services-table tbody tr:nth-child(even){background:rgba(255,255,255,0.30)}
+.services-table tbody tr:hover{background:rgba(207,183,138,0.12)}
+@media (max-width:768px){.services-table thead{display:none}.services-table,.services-table tbody,.services-table tr,.services-table td{display:block;width:100%}.services-table td{text-align:left;padding:.6rem}.services-table td:before{content:attr(data-label);font-weight:700;display:block;margin-bottom:.35rem}}
 
-/* Ensure header dark bg text readable if header present */
-.header.dark-background{background-color:var(--header-dark-bg) !important;color:var(--header-dark-text) !important}
-.header.dark-background *{color:var(--header-dark-text) !important}
+/* Cream text colors for secondary sections */
+#portfolio h2,#services h2,#media h2,#contact h2{color:var(--accent-color)}
+#portfolio p,#services p,#media p,#contact p{color:var(--accent-color)}
 
-/* Accessibility: ensure readable text on cards and important elements */
-.profile-card, .info-box, .resume-side, .resume-section{color:var(--contrast-color) !important}
-.progress-bar[aria-valuenow], .small, .lead, .company, .profession{color:var(--contrast-color) !important}
+/* Profile flip animation */
+.profile-image{perspective:1000px}
+.profile-image img{transform-style:preserve-3d;backface-visibility:hidden}
+/* Keep layout / 3D context regardless of motion preference */
+@keyframes flip{0%{transform:rotateY(0deg)}100%{transform:rotateY(360deg)}}
 
-/* Services table styling */
-.services-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1.25rem 0;
-  font-family: var(--font-sans);
-}
-.services-table thead th {
-  background: linear-gradient(90deg,var(--accent-dark), color-mix(in srgb,var(--accent-dark), black 10%));
-  color: #fff;
-  padding: 0.95rem 0.8rem;
-  text-align: center;
-  font-weight: 700;
-  border-radius: 6px;
-}
-.services-table th, .services-table td {
-  padding: 0.85rem 0.8rem;
-  border: 1px solid rgba(15,23,36,0.06);
-  text-align: center;
-  vertical-align: middle;
-}
-.services-table tbody tr:nth-child(even) { background: color-mix(in srgb,var(--accent-color), white 90%); }
-.services-table tbody tr:hover { background: color-mix(in srgb,var(--accent-dark), white 85%); transform: translateY(-1px); }
+/* Accessibility / focus outlines */
+:focus{outline:4px solid color-mix(in srgb,var(--accent-dark),black 10%);outline-offset:3px}
 
-/* Ensure Services table contrasts on dark backgrounds */
-.services .table-responsive {
-  background: var(--accent-color); /* cream panel behind the table */
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: var(--card-shadow);
+/* Responsive spacing */
+@media (max-width:768px){:root{--section-padding:2rem}}
+
+@keyframes graphFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.services-table {
-  background: transparent;
-  color: var(--contrast-color);
+.graph-fade {
+  opacity: 0;
 }
 
-.services-table thead th {
-  background: var(--accent-dark);
-  color: #ffffff;
-  padding: 0.95rem 0.8rem;
-  text-align: center;
-  font-weight: 700;
+/* Preloader spinner keyframes (moved here so reduced-motion handling is centralized) */
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.services-table th, .services-table td {
-  padding: 0.85rem 0.8rem;
-  border: 1px solid rgba(15,23,36,0.06);
-  text-align: center;
-  vertical-align: middle;
-  color: var(--contrast-color);
-  background: transparent;
+/* Only run the keyframe-based animations when the user has NOT requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .flip{animation: flip 1.2s ease-in-out}
+  .graph-fade.visible { animation: graphFadeIn 0.8s ease-out forwards; }
+  /* Ensure the page preloader (declared in main.css) also animates only when allowed */
+  #preloader:before { animation: animate-preloader 3s linear infinite; }
 }
 
-/* Lighter zebra rows on cream background */
-.services-table tbody tr:nth-child(even) { background: rgba(255,255,255,0.30); }
-.services-table tbody tr:nth-child(odd) { background: transparent; }
-
-/* Hover: slightly darker cream to indicate interactivity */
-.services-table tbody tr:hover { background: rgba(207,183,138,0.12); transform: translateY(-1px); }
-
-/* When the services section is inside a dark-background, make sure the panel still reads well */
-.dark-background .services .table-responsive {
-  background: var(--accent-color);
+/* When user requests reduced motion, disable these animations and transitions */
+@media (prefers-reduced-motion: reduce) {
+  .flip,
+  .graph-fade.visible,
+  #preloader:before {
+    animation: none !important;
+    transition: none !important;
+  }
+  /* Make graph elements visible immediately when reduced-motion is enabled */
+  .graph-fade { opacity: 1 !important; transform: none !important; }
 }
-
-@media (max-width:768px){
-  .services-table thead{display:none}
-  .services-table, .services-table tbody, .services-table tr, .services-table td{display:block;width:100%}
-  .services-table tr{margin-bottom:1rem}
-  .services-table td{text-align:left;padding:0.6rem}
-  .services-table td:before{content:attr(data-label);font-weight:700;display:block;margin-bottom:0.35rem}
-}
-
-/* Small screens adjustments */
-@media (max-width:768px){:root{--section-padding:2rem}.main img.img-fluid,.main video.img-fluid,.main iframe{max-width:100%}}
-
-/* End of custom.css */
