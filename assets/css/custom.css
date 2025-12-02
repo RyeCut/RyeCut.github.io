@@ -92,8 +92,8 @@ ul li::before{content:'';position:absolute;left:.2rem;top:50%;transform:translat
 @media (max-width:768px){.services-table thead{display:none}.services-table,.services-table tbody,.services-table tr,.services-table td{display:block;width:100%}.services-table td{text-align:left;padding:.6rem}.services-table td:before{content:attr(data-label);font-weight:700;display:block;margin-bottom:.35rem}}
 
 /* Cream text colors for secondary sections */
-#portfolio h2,#services h2,#media h2,#contact h2{color:var(--accent-color)}
-#portfolio p,#services p,#media p,#contact p{color:var(--accent-color)}
+#portfolio h2,#services h2,#media h2,#contact h2, #apie h2{color:var(--accent-color)}
+#portfolio p,#services p,#media p,#contact p, #apie p{color:var(--accent-color)}
 
 /* Animated gradient keyframes for services box */
 @media (prefers-reduced-motion: no-preference) {
@@ -118,7 +118,7 @@ ul li::before{content:'';position:absolute;left:.2rem;top:50%;transform:translat
 .shape.circle{border-radius:999px;background:linear-gradient(180deg,var(--accent-color),var(--accent-dark));width:88px;height:88px}
 
 /* triangle: created via clip-path so it can rotate around center */
-.shape.triangle{background:linear-gradient(180deg,#ffd860,#ffb347);clip-path:polygon(50% 0%,0% 100%,100% 100%);width:88px;height:88px;border-radius:8px;padding:0}
+.shape.triangle{background:linear-gradient(180deg,#ffd860,#ffb347);clip-path:polygon(50% 0%,0% 100%,100% 100%);width:88px;height:70px;border-radius:8px;padding:0}
 
 /* square: will move around inside the rail container */
 .square-rail{width:120px;height:120px;border-radius:12px;background:linear-gradient(180deg,#fffaf0,#fff7e6);display:flex;align-items:flex-start;justify-content:flex-start;position:relative;padding:10px;box-shadow:var(--card-shadow)}
@@ -127,9 +127,9 @@ ul li::before{content:'';position:absolute;left:.2rem;top:50%;transform:translat
 /* Animation definitions only when user allows motion */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes circlePulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.45); }
-    100% { transform: scale(1); }
+    0% { transform: scale(0.5); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(0.5); }
   }
 
   @keyframes triangleSpin {
@@ -139,15 +139,15 @@ ul li::before{content:'';position:absolute;left:.2rem;top:50%;transform:translat
 
   @keyframes squareMove {
     0%   { transform: translate(0px, 0px); }
-    25%  { transform: translate(80px, 0px); }
-    50%  { transform: translate(80px, 80px); }
-    75%  { transform: translate(0px, 80px); }
+    25%  { transform: translate(75px, 0px); }
+    50%  { transform: translate(75px, 75px); }
+    75%  { transform: translate(0px, 75px); }
     100% { transform: translate(0px, 0px); }
   }
 
   .shape.circle{animation: circlePulse 2.4s ease-in-out infinite}
-  .shape.triangle{animation: triangleSpin 4s linear infinite}
-  .shape.square{animation: squareMove 4s linear infinite}
+  .shape.triangle{animation: triangleSpin 3s linear infinite}
+  .shape.square{animation: squareMove 3s linear infinite}
 }
 
 /* Respect reduced-motion preference: disable animations and set sensible static states */
