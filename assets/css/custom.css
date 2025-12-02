@@ -83,10 +83,10 @@ ul li::before{content:'';position:absolute;left:.2rem;top:50%;transform:translat
 .resume-section ol li ol{padding-left:0}
 
 /* Services table styling (clean and readable) */
-.services .table-responsive{background:var(--accent-color);padding:1rem;border-radius:12px;box-shadow:var(--card-shadow)}
+.services .table-responsive{background:linear-gradient(180deg, #f7d99b 0%, #fff4dc 25%, #fcffc9 50%, #fff891 75%, #ffbe32 100%);background-size:100% 200%;padding:1rem;border-radius:12px;box-shadow:var(--card-shadow);color:#000;animation:gradientShift 6s ease-in-out infinite}
 .services-table{width:100%;border-collapse:collapse;margin:1rem 0;font-family:var(--font-sans)}
 .services-table thead th{background:var(--accent-dark);color:#fff;padding:.95rem .8rem;text-align:center;font-weight:700}
-.services-table th,.services-table td{padding:.85rem .8rem;border:1px solid rgba(15,23,36,0.06);text-align:center}
+.services-table th,.services-table td{padding:.85rem .8rem;border:1px solid rgba(15,23,36,0.06);text-align:center;color:#000}
 .services-table tbody tr:nth-child(even){background:rgba(255,255,255,0.30)}
 .services-table tbody tr:hover{background:rgba(207,183,138,0.12)}
 @media (max-width:768px){.services-table thead{display:none}.services-table,.services-table tbody,.services-table tr,.services-table td{display:block;width:100%}.services-table td{text-align:left;padding:.6rem}.services-table td:before{content:attr(data-label);font-weight:700;display:block;margin-bottom:.35rem}}
@@ -94,6 +94,69 @@ ul li::before{content:'';position:absolute;left:.2rem;top:50%;transform:translat
 /* Cream text colors for secondary sections */
 #portfolio h2,#services h2,#media h2,#contact h2{color:var(--accent-color)}
 #portfolio p,#services p,#media p,#contact p{color:var(--accent-color)}
+
+/* Animated gradient keyframes for services box */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes gradientShift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services .table-responsive { animation:none !important; background-position:0% 0% !important; }
+}
+
+/* Apie section — three transforming symbols */
+.apie .shapes{gap:2rem;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;padding:1.25rem}
+.shape-wrapper{width:140px;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.shape{width:88px;height:88px;display:inline-block;border-radius:8px;box-shadow:0 8px 20px rgba(15,23,36,0.06);display:flex;align-items:center;justify-content:center}
+.shape-label{font-size:.95rem;color:var(--muted-color)}
+
+/* circle: simple circle that expands/collapses */
+.shape.circle{border-radius:999px;background:linear-gradient(180deg,var(--accent-color),var(--accent-dark));width:88px;height:88px}
+
+/* triangle: created via clip-path so it can rotate around center */
+.shape.triangle{background:linear-gradient(180deg,#ffd860,#ffb347);clip-path:polygon(50% 0%,0% 100%,100% 100%);width:88px;height:88px;border-radius:8px;padding:0}
+
+/* square: will move around inside the rail container */
+.square-rail{width:120px;height:120px;border-radius:12px;background:linear-gradient(180deg,#fffaf0,#fff7e6);display:flex;align-items:flex-start;justify-content:flex-start;position:relative;padding:10px;box-shadow:var(--card-shadow)}
+.shape.square{width:30px;height:30px;border-radius:6px;background:linear-gradient(180deg,#ffcc33,#ff9f1c);position:absolute;top:10px;left:10px}
+
+/* Animation definitions only when user allows motion */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes circlePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.45); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes triangleSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes squareMove {
+    0%   { transform: translate(0px, 0px); }
+    25%  { transform: translate(80px, 0px); }
+    50%  { transform: translate(80px, 80px); }
+    75%  { transform: translate(0px, 80px); }
+    100% { transform: translate(0px, 0px); }
+  }
+
+  .shape.circle{animation: circlePulse 2.4s ease-in-out infinite}
+  .shape.triangle{animation: triangleSpin 4s linear infinite}
+  .shape.square{animation: squareMove 4s linear infinite}
+}
+
+/* Respect reduced-motion preference: disable animations and set sensible static states */
+@media (prefers-reduced-motion: reduce) {
+  .shape.circle, .shape.triangle, .shape.square { animation: none !important; transition: none !important; }
+  .shape.circle { transform: none !important; }
+  .shape.triangle { transform: none !important; }
+  .shape.square { transform: translate(0,0) !important; top:10px; left:10px; }
+}
 
 /* Profile flip animation */
 .profile-image{perspective:1000px}
