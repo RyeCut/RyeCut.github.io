@@ -220,7 +220,7 @@ ul li::before{content:'';position:absolute;left:.2rem;top:50%;transform:translat
   position: fixed;
   top: 20px;
   right: 20px;
-  background: green;
+  background: rgb(69, 255, 69);
   color: white;
   padding: 15px 25px;
   border-radius: 6px;
