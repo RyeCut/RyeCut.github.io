@@ -215,3 +215,23 @@ ul li::before{content:'';position:absolute;left:.2rem;top:50%;transform:translat
   /* Make graph elements visible immediately when reduced-motion is enabled */
   .graph-fade { opacity: 1 !important; transform: none !important; }
 }
+
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: green;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 6px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+.popup.show {
+  opacity: 1;
+  visibility: visible;
+}
