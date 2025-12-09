@@ -231,7 +231,7 @@
           </div>
         </div>
       </div>
-      
+
       <form id="contactForm" style="margin-top:40px;">
   <div class="form-group">
     <label>Vardas</label>
@@ -280,6 +280,42 @@
 <div id="popup" class="popup">Duomenys pateikti sėkmingai!</div>
 
     </section><!-- /Contact Section -->
+
+    <section id="game" class="section">
+  <div class="container section-title">
+    <h2>Mano Žaidimas</h2>
+  </div>
+
+  <div class="game-controls">
+    <select id="difficulty">
+      <option value="easy">Lengvas (4x3)</option>
+      <option value="hard">Sunkus (6x4)</option>
+    </select>
+
+    <button id="startGame">Start</button>
+    <button id="resetGame">Atnaujinti</button>
+  </div>
+
+  <div class="game-stats">
+  <p>Ėjimai: <span id="moves">0</span></p>
+  <p>Sutapimai: <span id="matches">0</span></p>
+  <p>Laikas: <span id="timer">0</span> s</p>
+</div>
+
+<div class="game-stats">
+  <p>Geriausias (Lengvas): <span id="bestEasy">-</span></p>
+  <p>Geriausias (Sunkus): <span id="bestHard">-</span></p>
+</div>
+
+
+  <div id="gameBoard" class="game-board"></div>
+
+  <div id="winMessage" class="win-message"></div>
+</section>
+
+
+
+
 
     <!-- Apie Section -->
     <section id="apie" class="apie section">

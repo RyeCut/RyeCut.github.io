@@ -152,3 +152,213 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => popup.classList.remove("show"), 3000);
   });
 });
+
+
+// ================================
+// MEMORY GAME
+// ================================
+
+const gameBoard = document.getElementById("gameBoard");
+const startBtn = document.getElementById("startGame");
+const resetBtn = document.getElementById("resetGame");
+const difficultySelect = document.getElementById("difficulty");
+const movesEl = document.getElementById("moves");
+const matchesEl = document.getElementById("matches");
+const winMessage = document.getElementById("winMessage");
+
+const icons = ["🍎","🍌","🍇","🍉","🍒","🥝",
+               "🍍","🥑","🍑","🍓","🥕","🌽"];
+
+let firstCard = null;
+let secondCard = null;
+let lockBoard = false;
+let moves = 0;
+let matches = 0;
+let totalPairs = 0;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function startGame() {
+  gameBoard.innerHTML = "";
+  winMessage.textContent = "";
+  firstCard = null;
+  secondCard = null;
+  lockBoard = false;
+  moves = 0;
+  matches = 0;
+  movesEl.textContent = "0";
+  matchesEl.textContent = "0";
+
+  const difficulty = difficultySelect.value;
+  let cardCount = difficulty === "easy" ? 12 : 24;
+  totalPairs = cardCount / 2;
+
+  const selectedIcons = shuffle([...icons]).slice(0, totalPairs);
+  const cards = shuffle([...selectedIcons, ...selectedIcons]);
+
+  gameBoard.style.gridTemplateColumns =
+    difficulty === "easy" ? "repeat(4, 1fr)" : "repeat(6, 1fr)";
+
+  cards.forEach(icon => {
+  const card = document.createElement("div");
+  card.classList.add("card");
+  card.dataset.icon = icon;
+
+  card.innerHTML = `
+    <div class="card-inner">
+      <div class="card-front"></div>
+      <div class="card-back">${icon}</div>
+    </div>
+  `;
+
+  card.addEventListener("click", flipCard);
+  gameBoard.appendChild(card);
+});
+
+}
+
+function flipCard() {
+  if (lockBoard) return;
+  if (this === firstCard) return;
+
+  // ✅ Jei laikmatis dar nepaleistas – paleidžiam nuo pirmo ėjimo
+  if (time === 0 && !timerInterval) {
+    startTimer();
+  }
+
+  this.classList.add("flipped");
+
+  
+
+  if (!firstCard) {
+    firstCard = this;
+    return;
+  }
+
+  secondCard = this;
+  moves++;
+  movesEl.textContent = moves;
+  checkMatch();
+}
+
+function checkMatch() {
+  const isMatch = firstCard.dataset.icon === secondCard.dataset.icon;
+
+  if (isMatch) {
+    firstCard.classList.add("matched");
+    secondCard.classList.add("matched");
+    matches++;
+    matchesEl.textContent = matches;
+    resetTurn();
+    checkWin();
+  } else {
+    lockBoard = true;
+    setTimeout(() => {
+      firstCard.classList.remove("flipped");
+      secondCard.classList.remove("flipped");
+      
+      resetTurn();
+    }, 1000);
+  }
+}
+
+function resetTurn() {
+  firstCard = null;
+  secondCard = null;
+  lockBoard = false;
+}
+
+function checkWin() {
+  if (matches === totalPairs) {
+    winMessage.textContent = "🎉 Laimėjote!";
+  }
+}
+
+
+
+
+
+// ================================
+// BEST SCORE + TIMER EXTENSION
+// ================================
+
+let timerInterval = null;
+let time = 0;
+
+const timerEl = document.getElementById("timer");
+const bestEasyEl = document.getElementById("bestEasy");
+const bestHardEl = document.getElementById("bestHard");
+
+// ✅ UŽKRAUTI GERIAUSIUS REZULTATUS IŠ localStorage
+function loadBestScores() {
+  const bestEasy = localStorage.getItem("best_easy");
+  const bestHard = localStorage.getItem("best_hard");
+
+  bestEasyEl.textContent = bestEasy ? bestEasy + " ėjimų" : "-";
+  bestHardEl.textContent = bestHard ? bestHard + " ėjimų" : "-";
+}
+
+loadBestScores();
+
+// ✅ LAIKMAČIO VALDYMAS
+function startTimer() {
+  clearInterval(timerInterval);
+  time = 0;
+  timerEl.textContent = "0";
+  timerInterval = setInterval(() => {
+    time++;
+    timerEl.textContent = time;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+// ✅ START ir RESET – tik VIENĄ kartą
+startBtn.addEventListener("click", () => {
+  startGame();
+  startTimer();
+});
+
+resetBtn.addEventListener("click", () => {
+  startGame();
+  startTimer();
+});
+
+// ✅ Automatinis kortelių išdėliojimas (be laikmačio)
+startGame();
+
+
+
+
+// ✅ PERGALĖS TIKRINIMO PRAPLĖTIMAS
+const originalCheckWin = checkWin;
+
+checkWin = function () {
+  if (matches === totalPairs) {
+    winMessage.textContent = "🎉 Laimėjote!";
+    stopTimer();
+
+    const difficulty = difficultySelect.value;
+    const currentMoves = moves;
+
+    if (difficulty === "easy") {
+      const bestEasy = localStorage.getItem("best_easy");
+      if (!bestEasy || currentMoves < bestEasy) {
+        localStorage.setItem("best_easy", currentMoves);
+      }
+    }
+
+    if (difficulty === "hard") {
+      const bestHard = localStorage.getItem("best_hard");
+      if (!bestHard || currentMoves < bestHard) {
+        localStorage.setItem("best_hard", currentMoves);
+      }
+    }
+
+    loadBestScores();
+  }
+};
